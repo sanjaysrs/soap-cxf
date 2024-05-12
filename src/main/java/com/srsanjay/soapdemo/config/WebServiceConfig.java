@@ -16,16 +16,16 @@ import org.springframework.xml.xsd.XsdSchema;
 public class WebServiceConfig {
 
     @Bean
-    public ServletRegistrationBean servletRegistrationBean(ApplicationContext context) {
+    public ServletRegistrationBean<MessageDispatcherServlet> servletRegistrationBean(ApplicationContext context) {
 
         MessageDispatcherServlet messageDispatcherServlet = new MessageDispatcherServlet();
         messageDispatcherServlet.setApplicationContext(context);
         messageDispatcherServlet.setTransformWsdlLocations(true);
 
-        return new ServletRegistrationBean(messageDispatcherServlet, "/ws/*");
+        return new ServletRegistrationBean<>(messageDispatcherServlet, "/ws/*");
     }
 
-    @Bean(name = "jello")
+    @Bean(name = "employees")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema xsdSchema) {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("EmployeePort");
