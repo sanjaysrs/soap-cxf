@@ -23,9 +23,15 @@
 		</dependency>
 
 		<dependency>
-			<groupId>wsdl4j</groupId>
-			<artifactId>wsdl4j</artifactId>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-wsdl</artifactId>
+			<version>4.0.4</version>
 		</dependency>
+
+		<!--		<dependency>-->
+<!--			<groupId>wsdl4j</groupId>-->
+<!--			<artifactId>wsdl4j</artifactId>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -42,52 +48,26 @@
 			</plugin>
 
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jaxb2-maven-plugin</artifactId>
-				<version>3.1.0</version>
+				<groupId>org.apache.cxf</groupId>
+				<artifactId>cxf-xjc-plugin</artifactId>
+				<version>4.0.1</version>
 				<executions>
 					<execution>
-						<id>xjc</id>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
 						<goals>
-							<goal>xjc</goal>
+							<goal>xsdtojava</goal>
 						</goals>
+						<configuration>
+							<xsdOptions>
+								<xsdOption>
+									<xsd>${basedir}/src/main/resources/employees.xsd</xsd>
+								</xsdOption>
+							</xsdOptions>
+						</configuration>
 					</execution>
 				</executions>
-				<configuration>
-					<sources>
-						<source>${project.basedir}/src/main/resources/employees.xsd</source>
-					</sources>
-<!--					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>-->
-<!--					<clearOutputDir>false</clearOutputDir>-->
-				</configuration>
 			</plugin>
-
-<!--			For Spring Boot 2-->
-<!--			<plugin>-->
-<!--				<groupId>org.codehaus.mojo</groupId>-->
-<!--				<artifactId>jaxb2-maven-plugin</artifactId>-->
-<!--				<version>1.6</version>-->
-<!--				<executions>-->
-<!--					<execution>-->
-<!--						<id>xjc</id>-->
-<!--						<goals>-->
-<!--							<goal>xjc</goal>-->
-<!--						</goals>-->
-<!--					</execution>-->
-<!--				</executions>-->
-<!--				<configuration>-->
-<!--					<schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>-->
-<!--					<outputDirectory>${project.basedir}/src/main/java</outputDirectory>-->
-<!--					<clearOutputDir>false</clearOutputDir>-->
-<!--				</configuration>-->
-<!--				<dependencies>-->
-<!--					<dependency>-->
-<!--						<groupId>javax.activation</groupId>-->
-<!--						<artifactId>activation</artifactId>-->
-<!--						<version>1.1.1</version>-->
-<!--					</dependency>-->
-<!--				</dependencies>-->
-<!--			</plugin>-->
 		</plugins>
 	</build>
 
